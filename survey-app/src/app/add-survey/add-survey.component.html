@@ -1,0 +1,75 @@
+<div class='survey-section'>
+
+    <div class="card">
+      <div class="card-header">
+        Take the survey!
+      </div>
+  
+      <div class="card-block">
+  
+        <div *ngIf="model">
+          <form [formGroup]="surveyForm" (ngSubmit)="onFormSubmit(surveyForm)">
+  
+            <div formGroupName="Survey">
+              <label>Id:</label>
+              <input type="text" name="Id" formControlName="Id">
+  
+              <label>Name:{{model.Survey.Name}}</label>
+              <input type="text" name="Name" formControlName="Name">
+  
+              <label>IsPrivate:</label>
+              <input type="checkbox" name="IsPrivate" formControlName="IsPrivate">
+  
+              <label>IsActive:</label>
+              <input type="checkbox" name="IsActive" formControlName="IsActive">
+  
+            </div>
+            <br/>
+            <br/>
+  
+            <div class='qa-set' formArrayName="QuestionAnswerSets">
+              <fieldset *ngFor="let questionAnswerSet of surveyForm.controls.QuestionAnswerSets.controls; index as setId;" [formGroupName]="setId">
+                <div formGroupName="Question">
+  
+                  <input type="hidden" name="Id" formControlName="Id">
+                  <label>{{setId+1}}. </label>
+                  <label>{{model.QuestionAnswerSets[setId].Question.Value}}</label>
+                </div>
+  
+                <div class="row" formArrayName="Answers">
+                  <div *ngFor="let answer of this.surveyForm.controls.QuestionAnswerSets.controls[setId].controls.Answers.controls; index as answerId;"
+                    [formGroupName]="answerId">
+  
+                    <div class="col-12 col-sm-3" formGroupName="Answer">
+                      <input type="hidden" name="Id" formControlName="Id">
+                      <label>{{answerId+1}}. </label>
+                      <label>{{model.QuestionAnswerSets[setId].Answers[answerId].Value}}</label>
+                    </div>
+  
+                  </div>
+                </div>
+  
+              </fieldset>
+            </div>
+  
+            <div class="row form-group">
+              <div class="col-12">
+                <button type="button" class="btn btn-primary float-right" type="submit">submit</button>
+              </div>
+            </div>
+  
+            <pre>
+                  Form Status: {{ surveyForm.status }}
+            </pre>
+  
+          </form>
+        </div>
+        <div *ngIf="model== undefined">
+          <p>Loading...</p>
+        </div>
+  
+      </div>
+    </div>
+  
+  </div>
+  

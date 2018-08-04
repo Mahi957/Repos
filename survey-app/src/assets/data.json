@@ -1,0 +1,105 @@
+{
+    "Survey": {
+        "Id": 1,
+        "Name": "Prime minister in 2019",
+        "IsPrivate": false,
+        "IsActive": true
+    },
+    "QuestionAnswerSets": [
+        {
+            "Question": {
+                "Id": 1,
+                "Value": "Whom you want as next prime minister of india in 2019",
+                "SurveyId": 1,
+                "AnswerId": 0
+            },
+            "Answers": [
+                {
+                    "Id": 1,
+                    "Value": "Narendra Modi",
+                    "QuestionId": 1
+                },
+                {
+                    "Id": 2,
+                    "Value": "Rahul Gandhi",
+                    "QuestionId": 1
+                },
+                {
+                    "Id": 3,
+                    "Value": "Others",
+                    "QuestionId": 1
+                }
+            ]
+        },
+        {
+            "Question": {
+                "Id": 2,
+                "Value": "Do you vote for Narendra modi as prime minister in 2019",
+                "SurveyId": 1,
+                "AnswerId": 0
+            },
+            "Answers": [
+                {
+                    "Id": 4,
+                    "Value": "Yes",
+                    "QuestionId": 2
+                },
+                {
+                    "Id": 5,
+                    "Value": "No",
+                    "QuestionId": 2
+                }
+            ]
+        },
+        {
+            "Question": {
+                "Id": 3,
+                "Value": "What is biggest achivement of Narendra Modi",
+                "SurveyId": 1,
+                "AnswerId": 0
+            },
+            "Answers": [
+                {
+                    "Id": 6,
+                    "Value": "Surgical strikes",
+                    "QuestionId": 3
+                },
+                {
+                    "Id": 7,
+                    "Value": "Foreign policy",
+                    "QuestionId": 3
+                },
+                {
+                    "Id": 8,
+                    "Value": "GST",
+                    "QuestionId": 3
+                },
+                {
+                    "Id": 9,
+                    "Value": "Swatch Bharath",
+                    "QuestionId": 3
+                }
+            ]
+        },
+        {
+            "Question": {
+                "Id": 4,
+                "Value": "What is biggest flop of Narendra Modi",
+                "SurveyId": 1,
+                "AnswerId": 0
+            },
+            "Answers": [
+                {
+                    "Id": 10,
+                    "Value": "Demonitisation",
+                    "QuestionId": 4
+                },
+                {
+                    "Id": 11,
+                    "Value": "GST",
+                    "QuestionId": 4
+                }
+            ]
+        }
+    ]
+}

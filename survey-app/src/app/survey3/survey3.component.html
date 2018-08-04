@@ -1,0 +1,181 @@
+<div class='survey-section'>
+
+  <div class="card">
+    <div class="card-header">
+      Take the survey!
+    </div>
+
+    <div class="card-block">
+
+      <div *ngIf="model">
+        <form [formGroup]="surveyForm" (ngSubmit)="onFormSubmit(surveyForm)">
+
+          <div formGroupName="Survey">
+            <label>Id:</label>
+            <input type="text" name="Id" formControlName="Id">
+
+            <label>Name:{{model.Survey.Name}}</label>
+            <input type="text" name="Name" formControlName="Name">
+
+            <label>IsPrivate:</label>
+            <input type="checkbox" name="IsPrivate" formControlName="IsPrivate">
+
+            <label>IsActive:</label>
+            <input type="checkbox" name="IsActive" formControlName="IsActive">
+
+          </div>
+          <br/>
+          <br/>
+
+          <div formArrayName="QuestionAnswerSets" *ngFor="let QuestionAnswerSet of surveyForm.controls.QuestionAnswerSets.controls; let i = index;">
+            <div [formGroupName]="i">
+
+              <div formGroupName="Question">
+                <!-- <label>Id:</label>
+                <input type="text" name="Id" formControlName="Id"> -->
+                <p>Q</p>
+                <!-- <p>{{surveyForm.controls.QuestionAnswerSets.value[i].Question.controls.Value}}</p>
+                <p>{{QuestionAnswerSet.Question.Value}}</p>
+                <p>{{model.QuestionAnswerSet[i].Question.Value}}</p> -->
+              </div>
+              <div formArrayName="Answers" *ngFor="let Answer of surveyForm.controls.QuestionAnswerSets.value[i].Answers.controls; let j = index;">
+                <div [formGroupName]="j">
+                  <div formGroupName="Answer">
+                    <!-- <label>Id:</label>
+                    <input type="text" name="Id" formControlName="Id"> -->
+                    <p>A</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+          <!--<div formArrayName1="QuestionAnswerSets">
+
+            <div *ngFor="let QuestionAnswerSet of surveyForm.controls.QuestionAnswerSets.controls; let i=index">
+
+              <div formGroupName="QuestionAnswerSet">
+
+                <div formGroupName="Question">
+                  <label>Id:</label>
+                  <input type="text" name="Id" formControlName="Id">
+
+                  <label>Value:</label>
+                  <input type="text" name="Value" formControlName="Value">
+
+                </div>
+                 <div formArrayName="Answers">
+
+                  <div *ngFor="let Answer surveyForm.controls.QuestionAnswerSets.value[i].Answers.controls; let j=index">
+                    <div formGroupName="Answer">
+                      <label>Id:</label>
+                      <input type="text" name="Id" formControlName="Id">
+
+                      <label>Value:</label>
+                      <input type="text" name="Value" formControlName="Value">
+
+                    </div>
+                  </div>
+                </div> 
+              </div>
+
+            </div>
+
+          </div>-->
+
+
+          <!-- <div formArrayName="QuestionAnswerSets">
+                  <h3>Aliases</h3> <button (click)="addAlias()">Add Alias</button>
+                
+                  <div *ngFor="let Question of QuestionAnswerSets.controls; let i=index">
+                   
+                    <label>
+                      Alias:
+                      <input type="text" [formControlName]="i">
+                    </label>
+                  </div>
+                </div> -->
+
+          <div class="row form-group">
+            <div class="col-12">
+              <button type="button" class="btn btn-primary float-right" type="submit">submit</button>
+            </div>
+          </div>
+
+          <pre>
+                Form Status: {{ surveyForm.status }}
+              </pre>
+
+        </form>
+      </div>
+      <div *ngIf="model== undefined">
+        <p>Loading...</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<!-- <form form novalidate (ngSubmit)="onFormSubmit(surveyForm)" #surveyForm="ngForm">
+        <div class="row form-group">
+          <div class="col">
+            <input type="text" [formControl]="name">
+
+          </div>
+        </div>
+
+        <fieldset ngModelGroup="Survey">
+          <label>Id:</label>
+          <input type="text" name="Id" [(ngModel)]="Id" [value]="model.Survey.Id">
+
+          <label>Name:{{model.Survey.Name}}</label>
+          <input type="text" name="Name" [(ngModel)]="Name" [value]="model.Survey.Name">
+
+          <label>IsPrivate:</label>
+          <input type="checkbox" name="IsPrivate" [(ngModel)]="IsPrivate" [value]="model.Survey.IsPrivate">
+
+          <label>IsActive:</label>
+          <input type="checkbox" name="IsActive" [(ngModel)]="IsActive">
+        </fieldset>
+
+        <fieldset ngModelGroup="QuestionAnswerSets" *ngFor="let qaset of model.QuestionAnswerSets;
+            let i = index">
+          <fieldset ngModelGroup="Answer">
+
+          </fieldset>
+          <fieldset ngModelGroup="Question">
+
+          </fieldset>
+        </fieldset>
+
+
+
+
+       <div class="row form-group" *ngFor="let qaset of model.QuestionAnswerSets;let i = index">
+          <div class="col-12">
+            <label class="question-label">{{i+1}}.{{qaset.Question.Value}}</label>
+          </div>
+
+          <div class="col-12 col-md-3" *ngFor="let answer of qaset.Answers;let j = index">
+            <label class="label-text">
+              <input type="hidden" name="QuestionAnswerSets[{{i}}].Question.Id" [(ngModel)]="model.QuestionAnswerSets[i].Question.Id" />
+
+              <input type="radio" name="QuestionAnswerSets[{{i}}].Question.AnswerId" [(ngModel)]="model.QuestionAnswerSets[i].Question.AnswerId"
+                [value]="model.QuestionAnswerSets[i].Answers[j].Id" /> {{model.QuestionAnswerSets[i].Answers[j].Value}}
+            </label>
+          </div>
+        </div> 
+
+        <div class="row form-group">
+          <div class="col-12">
+            <button type="button" class="btn btn-primary float-right" type="submit">submit</button>
+          </div>
+        </div>
+
+        <pre>{{ surveyForm.value | json }}</pre>
+        <pre>{{ model | json }}</pre>
+      </form> -->

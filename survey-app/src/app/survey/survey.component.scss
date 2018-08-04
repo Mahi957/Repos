@@ -1,0 +1,18 @@
+.survey-section{
+    .card-header{
+        background-color: #ec6434;
+    }
+
+    .card-block{
+
+        @media screen and (min-width: 768px) {
+            padding: 30px;
+        }
+            
+        .question-label{
+            font-weight: bold;
+        }
+
+
+    }
+}
