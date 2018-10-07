@@ -34,17 +34,14 @@ export class SurveyComponent implements OnInit {
   public surveyForm: FormGroup;
 
   ngOnInit() {
-    this.getSurvey();
+   
 
     this.surveyForm = this.formBuilder.group({
-      Survey: new FormGroup({
-        Id: new FormControl("", Validators.required),
-        Name: new FormControl("", Validators.required),
-        IsPrivate: new FormControl("", Validators.required),
-        IsActive: new FormControl("", Validators.required)
-      }),
       QuestionAnswerSets: new FormArray([])
     });
+
+    this.getSurvey();
+    
   }
 
   totalInit() {
@@ -53,74 +50,18 @@ export class SurveyComponent implements OnInit {
         this.surveyForm.controls.QuestionAnswerSets
       )).push(this.initSet(QuestionAnswerSet.Question.Id, QuestionAnswerSet.Question.Value));
     });
-
-    for (var i = 0; i < this.model.QuestionAnswerSets.length; i++) {
-      this.model.QuestionAnswerSets[i].Answers.forEach(Answer => {
-        (<FormArray>(this.surveyForm.controls.QuestionAnswerSets)).controls[i]["controls"].Answers.push(
-          this.initAnswer(Answer.Id, Answer.Value));
-      });
-    };
-
-    console.log('QuestionAnswerSets');
-    console.log(this.model.QuestionAnswerSets);
-
-    console.log('this.surveyForm.controls.QuestionAnswerSets');
-    console.log(this.surveyForm.controls.QuestionAnswerSets);
+    console.log('---------')
+    console.log(this.surveyForm.controls.QuestionAnswerSets)
   }
 
   initSet(Id: string, Value: string) {
     return this.formBuilder.group({
       Question: new FormGroup({
         Id: new FormControl(Id, Validators.required),
-        Value: new FormControl(Value, Validators.required),
-      }),
-      Answers: new FormArray([])
+        AnswerId: new FormControl(Value, Validators.required),
+      })
     });
   }
-
-  addSet() {
-    const questionAnswerSets = <FormArray>(
-      this.surveyForm.controls.QuestionAnswerSets
-    );
-    questionAnswerSets.push(this.initSet("", ""));
-  }
-
-  removeSet(setId: number) {
-    let questionAnswerSets = <FormArray>(
-      this.surveyForm.controls.QuestionAnswerSets
-    );
-    questionAnswerSets.removeAt(setId);
-  }
-
-  initAnswer(Id: string, Value: string) {
-    return this.formBuilder.group({
-      Answer: new FormGroup({
-        Id: new FormControl(Id, Validators.required),
-        Value: new FormControl(Value, Validators.required),
-      }),
-    });
-  }
-
-  addAnswer(setId: number) {
-    const questionAnswerSets = <FormArray>(
-      this.surveyForm.controls.QuestionAnswerSets
-    );
-    const answer = <FormArray>(
-      questionAnswerSets.controls[setId]["controls"].Answers
-    );
-    answer.push(this.initAnswer("", ""));
-  }
-
-  removeAnswer(setId: number, answerId: number) {
-    const questionAnswerSets = <FormArray>(
-      this.surveyForm.controls.QuestionAnswerSets
-    );
-    const answer = <FormArray>(
-      questionAnswerSets.controls[setId]["controls"].Answers
-    );
-    answer.removeAt(answerId);
-  }
-
 
   getSurvey(): void {
     this.surveyService.getSurveyJson()
@@ -137,9 +78,11 @@ export class SurveyComponent implements OnInit {
   }
 
 
-  public onFormSubmit({ value, valid }: { value: SurveyViewModel, valid: boolean }) {
+   onFormSubmit({ value, valid }: { value: SurveyViewModel, valid: boolean }) {
+    debugger;
     this.model = value;
     console.log(value);
+    console.log(this.surveyForm);
     console.log("valid: " + valid);
 
     this.surveyService.saveSurvey(value);

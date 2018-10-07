@@ -10,30 +10,31 @@
       <div *ngIf="model">
         <form [formGroup]="surveyForm" (ngSubmit)="onFormSubmit(surveyForm)">
 
-          <div formGroupName="Survey">
-            <input type="hidden" name="Id" formControlName="Id">
+          <div>
+            <input type="hidden" name="Id">
             <label>{{model.Survey.Name}}</label>
           </div>
 
           <div class='qa-set' formArrayName="QuestionAnswerSets">
-            <fieldset *ngFor="let questionAnswerSet of surveyForm.controls.QuestionAnswerSets.controls; index as setId;" [formGroupName]="setId">
+            <fieldset *ngFor="let questionAnswerSet of model.QuestionAnswerSets; index as setId;" [formGroupName]="setId">
+
+
               <div formGroupName="Question">
+                <div class="row">
+                  <input type="hidden" name="Id" formControlName="Id">
+                  <label>{{setId+1}}. </label>
+                  <label>{{questionAnswerSet.Question.Value}}</label>
+                </div>
+                <div class="row">
+                  <div *ngFor="let answer of questionAnswerSet.Answers; index as answerId;">
 
-                <input type="hidden" name="Id" formControlName="Id">
-                <label>{{setId+1}}. </label>
-                <label>{{model.QuestionAnswerSets[setId].Question.Value}}</label>
-              </div>
+                    <div class="col-12 col-sm-4">
 
-              <div class="row" formArrayName="Answers">
-                <div *ngFor="let answer of this.surveyForm.controls.QuestionAnswerSets.controls[setId].controls.Answers.controls; index as answerId;"
-                  [formGroupName]="answerId">
+                      <label>
+                        <input type="radio" formControlName="AnswerId" [name]="AnswerId" [value]="answer.Id" /> {{answer.Value}}
+                      </label>
 
-                  <div class="col-12 col-sm-3" formGroupName="Answer">
-                    <input type="hidden" name="Id" formControlName="Id">
-                    <label>
-                      <input type="radio" name="Value" formControlName="Value" /> {{model.QuestionAnswerSets[setId].Answers[answerId].Value}}
-                    </label>
-
+                    </div>
                   </div>
 
                 </div>
