@@ -7,8 +7,6 @@ import { Survey } from '../shared/models/survey';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
-
-
 import {
   Validators,
   FormBuilder,
@@ -18,7 +16,6 @@ import {
 } from "@angular/forms";
 import { QuestionAnswerSet } from '../shared/models/questionAnswerSet';
 import { Observable, of, throwError } from 'rxjs';
-
 
 @Component({
   selector: 'app-survey',
@@ -36,17 +33,20 @@ export class SurveyComponent implements OnInit {
   public surveyForm: FormGroup;
 
   ngOnInit() {
-   
-
     this.surveyForm = this.formBuilder.group({
+      Survey: FormGroup,
       QuestionAnswerSets: new FormArray([])
     });
 
     this.getSurvey();
-    
+
   }
 
   totalInit() {
+    this.surveyForm.controls.Survey = this.formBuilder.group({
+      Id: new FormControl(this.model.Survey.Id, Validators.required),
+    });
+
     this.model.QuestionAnswerSets.forEach(QuestionAnswerSet => {
       (<FormArray>(
         this.surveyForm.controls.QuestionAnswerSets
@@ -80,7 +80,7 @@ export class SurveyComponent implements OnInit {
   }
 
 
-   onFormSubmit({ value, valid }: { value: SurveyViewModel, valid: boolean }) {
+  onFormSubmit({ value, valid }: { value: SurveyViewModel, valid: boolean }) {
     debugger;
     this.model = value;
     console.log(value);

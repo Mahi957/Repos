@@ -4,21 +4,19 @@
     <div class="card-header">
       Take the survey!
     </div>
-    
 
     <div class="card-block">
 
       <div *ngIf="model">
         <form [formGroup]="surveyForm" (ngSubmit)="onFormSubmit(surveyForm)">
 
-          <div>
-            <input type="hidden" name="Id">
+          <div formGroupName="Survey">
+            <!-- <input type="hidden" name="Id" formControlName="Id"> -->
             <label>{{model.Survey.Name}}</label>
           </div>
 
           <div class='qa-set' formArrayName="QuestionAnswerSets">
             <fieldset *ngFor="let questionAnswerSet of model.QuestionAnswerSets; index as setId;" [formGroupName]="setId">
-
 
               <div formGroupName="Question">
                 <div class="row">
@@ -32,7 +30,8 @@
                     <div class="col-12 col-sm-4">
 
                       <label>
-                        <input type="radio" formControlName="AnswerId" [name]="AnswerId" [value]="answer.Id" /> {{answer.Value}}
+                        <input type="radio" formControlName="AnswerId" [name]="AnswerId" 
+                        [value]="answer.Id" /> {{answer.Value}}
                       </label>
 
                     </div>

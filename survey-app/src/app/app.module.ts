@@ -15,13 +15,17 @@ import { SurveyComponent } from './survey/survey.component';
 import { Survey2Component } from './survey2/survey2.component';
 import { Survey3Component } from './survey3/survey3.component';
 import { AddSurveyComponent } from './add-survey/add-survey.component';
+import { SurveyResultsComponent } from './survey-results/survey-results.component';
 
-const appRoutes: Routes=[
-  {path:'dashboard',component:DashboardComponent},
-  {path:'about',component:AboutComponent},
-  {path:'contactus',component:ContactusComponent},
-  {path:'survey',component:SurveyComponent},
-  { path: '',
+const appRoutes: Routes = [
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contactus', component: ContactusComponent },
+  { path: 'survey', component: SurveyComponent },
+  { path: 'addsurvey', component: AddSurveyComponent },
+  { path: 'surveyresults', component: SurveyResultsComponent },
+  {
+    path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full'
   },
@@ -37,7 +41,8 @@ const appRoutes: Routes=[
     SurveyComponent,
     Survey2Component,
     Survey3Component,
-    AddSurveyComponent
+    AddSurveyComponent,
+    SurveyResultsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -47,7 +52,7 @@ const appRoutes: Routes=[
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [HttpModule,HttpClientModule],
+  providers: [HttpModule, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
